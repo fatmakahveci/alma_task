@@ -1,5 +1,9 @@
 # README.md
 
+[![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Poetry](https://img.shields.io/badge/Poetry-managed-60A5FA?logo=poetry&logoColor=white)](https://python-poetry.org/)
+[![Last commit](https://img.shields.io/github/last-commit/fatmakahveci/alma_task)](https://github.com/fatmakahveci/alma_task/commits/main)
+
 ## Quick start - Run if you already have the required dependencies
 
 ```bash
