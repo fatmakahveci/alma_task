@@ -129,3 +129,10 @@ Data distribution will look like a normal distribution if there is enough data.
 #### P.S.
 
 - Python libraries dealing with data make the program more efficient and easier to implement, such as `pandas`, `numpy` etc. However, this project can be done without these libraries. If you want me to do this way, I can code and share the other solution.
+
+## Project Resources
+
+- [Changelog](CHANGELOG.md)
+- [Contributing guide](.github/CONTRIBUTING.md)
+- [Security policy](.github/SECURITY.md)
+- [License](LICENSE.md)
