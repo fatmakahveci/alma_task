@@ -5,7 +5,6 @@ choose any appropriate chart type (e.g., bar chart, histogram).
 """
 
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
 import seaborn as sns
 

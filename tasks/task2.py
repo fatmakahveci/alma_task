@@ -33,10 +33,6 @@ def calculate_average_score(movies: pd.DataFrame) -> float:
         )
         raise ValueError("Average score cannot be calculated because no movies were found.")
 
-    # If we want to skip 0.0 valued movies, instead of taking as 0.0.
-    # movies_with_score = movies[movies["IMDB Score"] != .0]
-    # average_score = movies_with_score["IMDB Score"].mean()
-
     return movies["IMDB Score"].mean()
 
 
