@@ -1,138 +1,80 @@
-# README.md
+# Movie Dataset Analysis
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?logo=python&logoColor=white)](https://www.python.org/)
 [![Poetry](https://img.shields.io/badge/Poetry-managed-60A5FA?logo=poetry&logoColor=white)](https://python-poetry.org/)
 [![Last commit](https://img.shields.io/github/last-commit/fatmakahveci/alma_task)](https://github.com/fatmakahveci/alma_task/commits/main)
+[![License](https://img.shields.io/badge/License-Apache--2.0-blue.svg)](LICENSE.md)
 
-## Quick start - Run if you already have the required dependencies
+A command-line Python project that explores a movie dataset through loading, cleaning, aggregation, filtering, record updates, recommendations, and rating visualization.
+
+## What It Does
+
+The analysis is organized into five focused tasks:
+
+1. Load and clean the movie CSV data.
+2. Calculate aggregate statistics and list the highest-rated titles.
+3. Filter movies by genre and report the available genres.
+4. Update a selected record and recommend a related movie.
+5. Generate a rating-distribution chart.
+
+The generated chart is saved as `images/rating_dist.png`, while execution details are written to `movies.log`.
+
+## Requirements
+
+- Python 3.10 or newer
+- [Poetry](https://python-poetry.org/) for dependency management
+- A `movies.csv` dataset containing the columns used by the task modules, including `imdbId`, `Title`, `IMDB Score`, and `Genre`
+
+The current implementation reads `movies.csv` from the user's `Downloads` directory. The CLI arguments are retained for task compatibility, but the dataset location is defined in `constants.py`.
+
+## Getting Started
 
 ```bash
-python main.py --help # You can see the parameter details.
-python main.py -d <dir> -f <file_name>.csv
-
-python -m unittest discover -s tests -p 'test_*.py' -v
-```
-
-### Run the application with `poetry`
-
-```bash
-curl -sSL https://install.python-poetry.org | python3 -
-
-poetry --version # check if installed
-poetry self update # update
-
-# configure poetry to create virtual environments inside the project\'s root directory
-poetry config virtualenvs.in-project true
-
-# specify the python version for the local directory using pyenv
-pyenv local 3.10.9
-
-poetry init
-
-# install libraries
+git clone https://github.com/fatmakahveci/alma_task.git
+cd alma_task
 poetry install
-
-##
-# activate the virtual environment and run a python file
-poetry shell
-
-python main.py --help # You can see the parameter details.
-python main.py -d <dir> -f <file_name>.csv
+poetry run pip install pandas matplotlib seaborn
+poetry run python main.py --dir "$HOME/Downloads" --file movies.csv
 ```
 
-## Test
+The current Poetry manifest declares the supported Python version but does not yet lock the data-analysis libraries, so the explicit package installation above is required.
 
-- More tests can be added. e.g. We can also test the uniqueness etc. as a part of the unit testing.
-- For the purpose of a task, tests are given as an example here.
+View all command-line options:
 
 ```bash
-# You can run the test with poetry.
-# poetry run python -m unittest discover -s tests -p 'test_*.py' -v OR
-poetry shell
-python -m unittest discover -s tests -p 'test_*.py' -v
-
-deactivate # close the virtual environment
+poetry run python main.py --help
 ```
 
-## Example run
+## Testing
 
-```markdown
--Task #1-----------------------------------------------------------
-
-Total number of the movies: 40108
-
--Task #2-----------------------------------------------------------
-
-Average score of all movies given scores: 6.41
-
----------
-
-Top 3 movies:
-
-       imdbId                           Imdb Link                  Title  IMDB Score                     Genre                                             Poster
-17623  252487  http://www.imdb.com/title/tt252487  Hababam Sinifi (1975)         9.5           [Comedy, Drama]  https://images-na.ssl-images-amazon.com/images...
-7356   185906  http://www.imdb.com/title/tt185906       Band of Brothers         9.5  [Action, Drama, History]  https://images-na.ssl-images-amazon.com/images...
-38499  795176  http://www.imdb.com/title/tt795176           Planet Earth         9.5             [Documentary]  https://images-na.ssl-images-amazon.com/images...
-
--Task #3-----------------------------------------------------------
-
-Movies selected by Animation genre:
-        imdbId                            Imdb Link                                         Title  IMDB Score                           Genre                                             Poster
-0       114709   http://www.imdb.com/title/tt114709                              Toy Story (1995)         5.0  [Animation, Adventure, Comedy]  https://images-na.ssl-images-amazon.com/images...
-12      112453   http://www.imdb.com/title/tt112453                                  Balto (1995)         7.1   [Animation, Adventure, Drama]  https://images-na.ssl-images-amazon.com/images...
-47      114148   http://www.imdb.com/title/tt114148                             Pocahontas (1995)         6.7   [Animation, Adventure, Drama]  https://images-na.ssl-images-amazon.com/images...
-236     113198   http://www.imdb.com/title/tt113198                          A Goofy Movie (1995)         6.8  [Animation, Adventure, Comedy]  https://images-na.ssl-images-amazon.com/images...
-241     113234   http://www.imdb.com/title/tt113234                       Gumby: The Movie (1995)         6.2  [Animation, Action, Adventure]  https://images-na.ssl-images-amazon.com/images...
-...        ...                                  ...                                           ...         ...                             ...                                                ...
-40030  4955162  http://www.imdb.com/title/tt4955162               Barbie in Rock 'N Royals (2015)         5.7             [Animation, Family]  https://images-na.ssl-images-amazon.com/images...
-40031  5042436  http://www.imdb.com/title/tt5042436                      Barbie: Spy Squad (2016)         5.5             [Animation, Family]  https://images-na.ssl-images-amazon.com/images...
-40065  5973626  http://www.imdb.com/title/tt5973626  Batman: Return of the Caped Crusaders (2016)         7.0  [Animation, Action, Adventure]  https://images-na.ssl-images-amazon.com/images...
-40081  1679335  http://www.imdb.com/title/tt1679335                                 Trolls (2016)         6.5  [Animation, Adventure, Comedy]  https://images-na.ssl-images-amazon.com/images...
-40085  4189294  http://www.imdb.com/title/tt4189294    Lego DC Comics: Batman Be-Leaguered (2014)         6.8      [Animation, Short, Action]  https://images-na.ssl-images-amazon.com/images...
-
-[1750 rows x 6 columns]
-
------
-
-Unique genres: Animation, Adventure, Comedy, Action, Family, Romance, Drama, Crime, Thriller, Fantasy, Horror, Biography, History, Mystery, Sci-Fi, War, Sport, Music, Documentary, Musical, Western, Short, Film-Noir, Talk-Show, News, Adult, Reality-TV, Game-Show.
-
--Task #4-----------------------------------------------------------
-
-Movie is updated as:
-
-   imdbId                           Imdb Link             Title  IMDB Score                       Genre                                             Poster
-0  114709  http://www.imdb.com/title/tt114709  Toy Story (1995)         5.0  Animation|Adventure|Comedy  https://images-na.ssl-images-amazon.com/images...
-
------
-
-Recommended movie:
-
-imdbId                                                   213338
-Imdb Link                    http://www.imdb.com/title/tt213338
-Title                                              Cowboy Bebop
-IMDB Score                                                  9.0
-Genre                                                 Animation
-Poster        https://images-na.ssl-images-amazon.com/images...
-Name: 23537, dtype: object
-
--Task #5-----------------------------------------------------------
-
-The plot shows the rating distribution.
-Data distribution will look like a normal distribution if there is enough data.
--------------------------------------------------------------------
+```bash
+poetry run python -m unittest discover -s tests -p 'test_*.py' -v
 ```
 
-![Rating distribution](images/rating_dist.png)
+## Project Structure
 
----
+```text
+.
+├── main.py              Application entry point and task orchestration
+├── constants.py         Dataset path and analysis defaults
+├── utils.py             CSV loading, cleaning, and CLI helpers
+├── tasks/               Five independent analysis stages
+├── tests/               Unit tests
+└── images/              Generated and documented visualizations
+```
 
-#### P.S.
+## Example Output
 
-- Python libraries dealing with data make the program more efficient and easier to implement, such as `pandas`, `numpy` etc. However, this project can be done without these libraries. If you want me to do this way, I can code and share the other solution.
+The program reports the record count, average score, top-rated titles, genre-filtered results, and a related recommendation. The included sample visualization shows the resulting rating distribution:
+
+![Distribution of movie ratings](images/rating_dist.png)
+
+## Contributing
+
+See the [contributing guide](.github/CONTRIBUTING.md) before proposing a change. Include tests for modifications to data cleaning or analysis behavior.
 
 ## Project Resources
 
 - [Changelog](CHANGELOG.md)
-- [Contributing guide](.github/CONTRIBUTING.md)
 - [Security policy](.github/SECURITY.md)
 - [License](LICENSE.md)
