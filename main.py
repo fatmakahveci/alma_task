@@ -5,10 +5,11 @@ from os import path
 
 import constants as C
 from tasks import task1, task2, task3, task4, task5
-from utils import parse_arguments
+from utils import parse_arguments, configure_dataset
 
 if __name__ == "__main__":
     args = parse_arguments()
+    configure_dataset(args)
 
     logging.basicConfig(
         filename=path.join(C.PATH, "movies.log"),

@@ -1,6 +1,7 @@
 """Utility functions"""
 
 import argparse
+from pathlib import Path
 
 import pandas as pd
 
@@ -49,7 +50,7 @@ def load_movies() -> pd.DataFrame:
     return clean_data(movies)
 
 
-def parse_arguments():
+def parse_arguments(argv=None):
     """Command-line argument parsing.
 
     Returns:
@@ -73,4 +74,19 @@ def parse_arguments():
         required=True,
     )
 
-    return parser.parse_args()
+    args = parser.parse_args(argv)
+    directory = Path(args.dir).expanduser().resolve()
+    filename = Path(args.file)
+    if filename.is_absolute() or filename.name != args.file:
+        parser.error("--file must be a filename; use --dir for the directory")
+    dataset = directory / filename
+    if not dataset.is_file():
+        parser.error(f"Dataset does not exist: {dataset}")
+    args.dir = str(directory)
+    return args
+
+
+def configure_dataset(args):
+    """Configure all task modules from the validated CLI dataset selection."""
+    C.PATH = args.dir
+    C.FILE = str(Path(args.dir) / args.file)

@@ -25,19 +25,19 @@ The generated chart is saved as `images/rating_dist.png`, while execution detail
 - [Poetry](https://python-poetry.org/) for dependency management
 - A `movies.csv` dataset containing the columns used by the task modules, including `imdbId`, `Title`, `IMDB Score`, and `Genre`
 
-The current implementation reads `movies.csv` from the user's `Downloads` directory. The CLI arguments are retained for task compatibility, but the dataset location is defined in `constants.py`.
+The CLI reads the file selected by `--dir` and `--file`. Missing files are rejected
+before any task runs. The filename must not contain a directory component.
 
 ## Getting Started
 
 ```bash
 git clone https://github.com/fatmakahveci/alma_task.git
 cd alma_task
-poetry install
-poetry run pip install pandas matplotlib seaborn
+poetry install --no-root
 poetry run python main.py --dir "$HOME/Downloads" --file movies.csv
 ```
 
-The current Poetry manifest declares the supported Python version but does not yet lock the data-analysis libraries, so the explicit package installation above is required.
+The analysis libraries are declared in `pyproject.toml` and resolved in `poetry.lock`.
 
 View all command-line options:
 
